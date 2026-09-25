@@ -1,6 +1,25 @@
 import 'dotenv/config';
 import { createReactAgent } from '@langchain/langgraph/prebuilt';
 import { ChatGoogleGenerativeAI } from '@langchain/google-genai';
+import { tool } from '@langchain/core/tools';
+import { z } from 'zod';
+
+const weatherTool = tool(
+  async ({ query }) => {
+    // This is a placeholder, but don't tell the LLM that...
+    if (query.toLowerCase().includes('san francisco')) {
+      return "It's 60 degrees and foggy.";
+    }
+    return "It's 90 degrees and sunny.";
+  },
+  {
+    name: 'weather',
+    description: 'Get Weather in a specific city',
+    schema: z.object({
+      query: z.string().describe('The query to use in your search.'),
+    }),
+  }
+);
 
 const model = new ChatGoogleGenerativeAI({
   model: 'gemini-3.6-flash',
@@ -10,13 +29,13 @@ const model = new ChatGoogleGenerativeAI({
 
 export const agent = createReactAgent({
   llm: model,
-  tools: [],
+  tools: [weatherTool],
 });
 const result = await agent.invoke({
   messages: [
     {
       role: 'user',
-      content: 'Hello, how can you help me?',
+      content: 'whats the weather in san francisco?',
     },
   ],
 });
