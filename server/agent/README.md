@@ -113,7 +113,7 @@ const weatherTool = tool(
 * **Does each message get a new `thread_id` in a continuous chat?**
   * ❌ **No:** A continuous conversation uses the **same `thread_id`** across all turns so the agent remembers past context.
   * 🔄 **New `thread_id`** is generated only when creating a new chat session (e.g., clicking "+ New Chat").
-* **Data Type Requirement:** `thread_id` **must be a string** (e.g., `'42'`, `'session-123'`, UUID) to avoid prototype pollution guards in `MemorySaver`.
+* **Data Type Requirement:** `thread_id` **MUST be a string** (e.g., `'42'`, `'session-123'`, UUID). Numbers (like `42`) cause an error because `MemorySaver` requires string keys to prevent prototype pollution.
 
 ### Console Methods: `console.log` vs `console.info`
 * **In Node.js:** Both output identically to `stdout`.
