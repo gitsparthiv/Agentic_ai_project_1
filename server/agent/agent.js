@@ -3,6 +3,7 @@ import { createReactAgent } from '@langchain/langgraph/prebuilt';
 import { ChatGoogleGenerativeAI } from '@langchain/google-genai';
 import { tool } from '@langchain/core/tools';
 import { z } from 'zod';
+import { MemorySaver } from '@langchain/langgraph';
 
 const weatherTool = tool(
   async ({ query }) => {
@@ -20,6 +21,7 @@ const weatherTool = tool(
     }),
   }
 );
+const checkpointSaver = new MemorySaver();
 
 const model = new ChatGoogleGenerativeAI({
   model: 'gemini-3.6-flash',
@@ -30,6 +32,7 @@ const model = new ChatGoogleGenerativeAI({
 export const agent = createReactAgent({
   llm: model,
   tools: [weatherTool],
+  checkpointSaver,
 });
 const result = await agent.invoke({
   messages: [
@@ -37,7 +40,19 @@ const result = await agent.invoke({
       role: 'user',
       content: 'whats the weather in san francisco?',
     },
+  ],  
+},
+{ configurable: { thread_id: '42' } } 
+);
+const followup = await agent.invoke({
+  messages: [
+    {
+      role: 'user',
+      content: 'whats city is that for?',
+    },
   ],
-});
-
+},
+{ configurable: { thread_id: '42' } }
+);
 console.log(result.messages.at(-1)?.content);
+console.info(followup.messages.at(-1)?.content);
