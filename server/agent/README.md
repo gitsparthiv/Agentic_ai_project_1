@@ -10,6 +10,7 @@ This document tracks all the concepts, questions, architecture patterns, debuggi
 3. [Core Concepts](#3-core-concepts)
    - [What is a ReAct Agent?](#what-is-a-react-agent)
    - [LLM Model Selection & API Endpoints](#llm-model-selection--api-endpoints)
+   - [Model Configuration (`apiKey` fallback & `temperature: 0`)](#model-configuration-apikey-fallback--temperature-0)
    - [Tool Definition & Validation (Zod)](#tool-definition--validation-zod)
    - [State Management & Checkpointers (`MemorySaver`)](#state-management--checkpointers-memorysaver)
    - [Understanding `thread_id` & Session Tracking](#understanding-thread_id--session-tracking)
@@ -81,6 +82,20 @@ GOOGLE_API_KEY=your_gemini_api_key_here
   * `gemini-3.6-flash` / `gemini-3.8-flash`: High-performance flash models for complex agent reasoning.
   * `gemini-2.5-pro`: Deep multi-step reasoning.
 
+### Model Configuration (`apiKey` fallback & `temperature: 0`)
+```javascript
+const model = new ChatGoogleGenerativeAI({
+  model: 'gemini-3.6-flash',
+  apiKey: process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY,
+  temperature: 0,
+});
+```
+* **`apiKey: process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY`:**
+  * Serves as a fallback mechanism. The official Google SDK defaults only to `GOOGLE_API_KEY`. By using the OR (`||`) operator, your application supports both `.env` naming conventions without crashing.
+* **`temperature: 0`:**
+  * Sets the model to **deterministic/focused** mode (removes randomness).
+  * **Critical for AI Agents & Tools:** Ensures strict compliance with tool parameter schemas (Zod), prevents hallucinated arguments, and delivers predictable multi-step graph execution.
+
 ### Tool Definition & Validation (Zod)
 Tools require a defined schema so the LLM knows what arguments to pass:
 ```javascript
@@ -113,7 +128,7 @@ const weatherTool = tool(
 * **Does each message get a new `thread_id` in a continuous chat?**
   * ❌ **No:** A continuous conversation uses the **same `thread_id`** across all turns so the agent remembers past context.
   * 🔄 **New `thread_id`** is generated only when creating a new chat session (e.g., clicking "+ New Chat").
-* **Data Type Requirement:** `thread_id` **MUST be a string** (e.g., `'42'`, `'session-123'`, UUID). Numbers (like `42`) cause an error because `MemorySaver` requires string keys to prevent prototype pollution.
+* **Data Type Requirement:** `thread_id` **MUST be a string** (e.g., `'42'`, `'session-123'`, UUID). Numbers (like `42`) cause a runtime exception because `MemorySaver` requires string keys to prevent prototype pollution.
 
 ### Console Methods: `console.log` vs `console.info`
 * **In Node.js:** Both output identically to `stdout`.
@@ -153,7 +168,7 @@ const weatherTool = tool(
 // 2. Setup Checkpointer (Memory)
 const checkpointSaver = new MemorySaver();
 
-// 3. Initialize Model
+// 3. Initialize Model with API Fallback and Deterministic Temperature
 const model = new ChatGoogleGenerativeAI({
   model: 'gemini-3.6-flash',
   apiKey: process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY,
@@ -207,3 +222,4 @@ console.info(followup.messages.at(-1)?.content);
 | `[404 Not Found] models/gemini-1.5-flash is not found` | The model identifier was deprecated or not supported on that API version. | Update `model` parameter to available versions like `gemini-3.6-flash` or `gemini-3.8-flash`. |
 | `SyntaxError: Unexpected token '{'` on `agent.invoke` | `configurable` config was pasted inside the message payload object instead of passing it as the 2nd argument. | Pass input as argument 1 and config as argument 2: `agent.invoke({ messages: [...] }, { configurable: { thread_id: '42' } })`. |
 | `Error: Invalid configurable value for key "thread_id": expected a string identifier (got number)` | Passed a numeric value (e.g., `42`) to `thread_id`. `MemorySaver` requires string keys. | Wrap the thread identifier in quotes (e.g. `'42'`). |
+| `Error: Please set an API key for Google Generative AI` | Environment variable was named `GEMINI_API_KEY` but SDK searched for `GOOGLE_API_KEY`. | Use `apiKey: process.env.GEMINI_API_KEY \|\| process.env.GOOGLE_API_KEY`. |
