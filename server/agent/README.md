@@ -15,7 +15,10 @@ This document tracks all the concepts, questions, architecture patterns, debuggi
    - [State Management & Checkpointers (`MemorySaver`)](#state-management--checkpointers-memorysaver)
    - [Understanding `thread_id` & Session Tracking](#understanding-thread_id--session-tracking)
    - [Console Methods: `console.log` vs `console.info`](#console-methods-consolelog-vs-consoleinfo)
+   - [API Testing & Terminal Tools (`curl` in PowerShell)](#api-testing--terminal-tools-curl-in-powershell)
 4. [Step-by-Step Code Evolution](#4-step-by-step-code-evolution)
+   - [Agent Script (`server/agent/agent.js`)](#agent-script-serveragentagentjs)
+   - [Express Server Integration (`server/agent/index.js`)](#express-server-integration-serveragentindexjs)
 5. [Common Errors & Debugging Log](#5-common-errors--debugging-log)
 
 ---
@@ -23,6 +26,7 @@ This document tracks all the concepts, questions, architecture patterns, debuggi
 ## 1. Project Overview & Architecture
 
 * **Frameworks & Libraries:**
+  * [`express`](https://expressjs.com/): Fast web server framework to expose the agent via HTTP endpoints.
   * [`@langchain/langgraph`](https://github.com/langchain-ai/langgraphjs): Orchestrates graph workflows, agents, loops, and persistence.
   * [`@langchain/google-genai`](https://github.com/langchain-ai/langchainjs): Connects to Google's Gemini LLMs.
   * [`@langchain/core`](https://github.com/langchain-ai/langchainjs): Core primitives (tools, messages, runnables).
@@ -38,6 +42,7 @@ This document tracks all the concepts, questions, architecture patterns, debuggi
   │       ├── .env          # API keys (ignored by git)
   │       ├── .gitignore    # Ignore rules
   │       ├── package.json  # Node dependencies
+  │       ├── index.js      # Express server entry point
   │       ├── agent.js      # Agent logic & execution
   │       └── README.md     # (This file) Learning & Reference Log
   └── .gitignore
@@ -50,7 +55,7 @@ This document tracks all the concepts, questions, architecture patterns, debuggi
 ### Installing Dependencies
 ```powershell
 # Inside server/agent:
-npm install @langchain/langgraph @langchain/core @langchain/google-genai zod dotenv
+npm install express @langchain/langgraph @langchain/core @langchain/google-genai zod dotenv
 ```
 
 ### Environment Variables (`.env`)
@@ -58,6 +63,7 @@ Store sensitive keys securely in `server/agent/.env`:
 ```env
 GOOGLE_API_KEY=your_gemini_api_key_here
 # or GEMINI_API_KEY=your_gemini_api_key_here
+PORT=3001
 ```
 
 ### Why `import 'dotenv/config';` is placed at the top
@@ -134,11 +140,20 @@ const weatherTool = tool(
 * **In Node.js:** Both output identically to `stdout`.
 * **In Browsers:** `console.info` maps to the "Info" log level filter and may display an info icon, while `console.log` is general debugging.
 
+### API Testing & Terminal Tools (`curl` in PowerShell)
+* **What is `curl`?** A command-line tool to send HTTP requests and test APIs without needing a frontend or Postman.
+* **Windows PowerShell Quirk:** In Windows PowerShell 5.1, `curl` is aliased to `Invoke-WebRequest`, which may display a security prompt about HTML script execution.
+* **Recommended Solution on Windows:** Always run `curl.exe` (to use the native binary) or add `-UseBasicParsing`:
+  ```powershell
+  curl.exe http://localhost:3001
+  ```
+* **Escaping Suspended Prompts:** If trapped in a prompt (`[Y] Yes [S] Suspend`), type `exit` or press `Ctrl + C`.
+
 ---
 
 ## 4. Step-by-Step Code Evolution
 
-### Latest Implementation (`server/agent/agent.js`)
+### Agent Script (`server/agent/agent.js`)
 
 ```javascript
 import 'dotenv/config';
@@ -212,6 +227,23 @@ console.log(result.messages.at(-1)?.content);
 console.info(followup.messages.at(-1)?.content);
 ```
 
+### Express Server Integration (`server/agent/index.js`)
+
+```javascript
+import express from 'express';
+
+const app = express();
+const port = 3001;
+
+app.get('/', (req, res) => {
+  res.send('Hello World!');
+});
+
+app.listen(port, () => {
+  console.log(`Server is running on http://localhost:${port}`);
+});
+```
+
 ---
 
 ## 5. Common Errors & Debugging Log
@@ -223,3 +255,4 @@ console.info(followup.messages.at(-1)?.content);
 | `SyntaxError: Unexpected token '{'` on `agent.invoke` | `configurable` config was pasted inside the message payload object instead of passing it as the 2nd argument. | Pass input as argument 1 and config as argument 2: `agent.invoke({ messages: [...] }, { configurable: { thread_id: '42' } })`. |
 | `Error: Invalid configurable value for key "thread_id": expected a string identifier (got number)` | Passed a numeric value (e.g., `42`) to `thread_id`. `MemorySaver` requires string keys. | Wrap the thread identifier in quotes (e.g. `'42'`). |
 | `Error: Please set an API key for Google Generative AI` | Environment variable was named `GEMINI_API_KEY` but SDK searched for `GOOGLE_API_KEY`. | Use `apiKey: process.env.GEMINI_API_KEY \|\| process.env.GOOGLE_API_KEY`. |
+| PowerShell `Invoke-WebRequest` Script Execution Risk warning when running `curl` | `curl` is aliased to `Invoke-WebRequest` in PowerShell 5.1. | Use `curl.exe http://localhost:3001` or add `-UseBasicParsing`. |
