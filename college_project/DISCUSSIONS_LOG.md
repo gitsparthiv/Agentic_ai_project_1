@@ -42,5 +42,13 @@ This document records discussions, thoughts, options weighed, and final conclusi
 - **Deliverable Created:** Added [`CHALLENGES_AND_RISKS.md`](file:///d:/agentic_ai_project_1/college_project/CHALLENGES_AND_RISKS.md) as a technical reference for team collaborators.
 - **Next Steps:** Clarify cross-questions regarding data sources, jurisdiction scope, and report delivery format.
 
+### Session 7: Actor Streamlining & IEEE 830 SRS Standardization (November 1, 2026)
+- **Decision on System Actors:** Officially narrowed down to **2 core actors**:
+  1. *Corporate Legal Counsel / Compliance Officer* (Reviews triaged incidents, verifies citations, exports executive dossiers).
+  2. *System Administrator / Knowledge Base Admin* (Manages statutory ingestion, vector embeddings, API keys, and pipeline health).
+  *(Discarded PR Manager role to maintain strict legal domain focus and prevent UI bloat).*
+- **SRS Standard Adopted:** Created [`IEEE_830_SRS_TEMPLATE.md`](file:///d:/agentic_ai_project_1/college_project/IEEE_830_SRS_TEMPLATE.md) adhering to the standard IEEE Std 830-1998 format with tracking IDs (`FR-x.x`, `NFR-x`), customized with prompts specifically for LegalAdvisor AI.
+- **Status:** Phase 2 (SRS Drafting) officially initiated.
+
 ---
 *(New discussion topics, trade-offs, and decisions will be logged here chronologically)*
