@@ -9,6 +9,7 @@ Welcome to the master tracking space for our final college project. This folder 
 ```
 d:\agentic_ai_project_1\college_project\
 ├── README.md                  # Master Hub, Phase Overview & Progress Tracker (This file)
+├── PROJECT_NAMES_GUIDE.md     # Project Titles, Naming Proposals, Acronyms & Rationales
 ├── REQUIREMENTS_GUIDELINES.md # College Guidelines, Deadlines & Step-by-Step Milestones
 ├── DISCUSSIONS_LOG.md         # Brainstorming sessions, decisions made, Q&A records
 └── ARCHITECTURE_DESIGN.md     # System architecture, schemas, tech stack & business logic
@@ -20,7 +21,7 @@ d:\agentic_ai_project_1\college_project\
 
 | Phase | Milestone / College Step | Status | Key Deliverable |
 | :---: | :--- | :---: | :--- |
-| **Phase 1** | Problem Statement & Business Domain Selection | 🟡 In Progress | Problem Definition & Scope Document |
+| **Phase 1** | Problem Statement, Scope & Project Identity | 🟡 In Progress | Problem Definition, Scope & Name Guide |
 | **Phase 2** | Requirements Gathering & College Step Approval | ⚪ Not Started | SRS (Software Requirements Specification) |
 | **Phase 3** | System Architecture & Agent Workflow Design | ⚪ Not Started | Architecture Diagram, Schemas & Tech Stack |
 | **Phase 4** | Core Engine & Backend Prototype | ⚪ Not Started | API, Agent Loops, Tools & Database |
@@ -32,11 +33,13 @@ d:\agentic_ai_project_1\college_project\
 
 ## 📌 Document Index
 
-1. [REQUIREMENTS_GUIDELINES.md](file:///d:/agentic_ai_project_1/college_project/REQUIREMENTS_GUIDELINES.md)
+1. [PROJECT_NAMES_GUIDE.md](file:///d:/agentic_ai_project_1/college_project/PROJECT_NAMES_GUIDE.md)
+   * Detailed breakdown of academic titles, enterprise product names, acronyms, and semantic etymologies.
+2. [REQUIREMENTS_GUIDELINES.md](file:///d:/agentic_ai_project_1/college_project/REQUIREMENTS_GUIDELINES.md)
    * Tracks college requirements, evaluation criteria, and prescribed steps.
-2. [DISCUSSIONS_LOG.md](file:///d:/agentic_ai_project_1/college_project/DISCUSSIONS_LOG.md)
+3. [DISCUSSIONS_LOG.md](file:///d:/agentic_ai_project_1/college_project/DISCUSSIONS_LOG.md)
    * Detailed chronological log of discussions, trade-offs, ideas, and agreed solutions.
-3. [ARCHITECTURE_DESIGN.md](file:///d:/agentic_ai_project_1/college_project/ARCHITECTURE_DESIGN.md)
+4. [ARCHITECTURE_DESIGN.md](file:///d:/agentic_ai_project_1/college_project/ARCHITECTURE_DESIGN.md)
    * Visual diagrams (Mermaid), system components, data models, and Agentic AI workflows.
 
 ---
