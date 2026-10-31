@@ -50,5 +50,16 @@ This document records discussions, thoughts, options weighed, and final conclusi
 - **SRS Standard Adopted:** Created [`IEEE_830_SRS_TEMPLATE.md`](file:///d:/agentic_ai_project_1/college_project/IEEE_830_SRS_TEMPLATE.md) adhering to the standard IEEE Std 830-1998 format with tracking IDs (`FR-x.x`, `NFR-x`), customized with prompts specifically for LegalAdvisor AI.
 - **Status:** Phase 2 (SRS Drafting) officially initiated.
 
+### Session 8: Architecture Freezing & Core Technology Stack Finalization (November 1, 2026)
+- **Decisions Finalized:**
+  1. *Data Ingestion Strategy (Agent 1):* Hybrid model consisting of Reddit API (PRAW) for live streaming + Mock CSV/JSON stream uploader (ensures offline reliability during college evaluations).
+  2. *Statutory Scope (Agent 3):* Officially frozen strictly to **Indian Law**:
+     - *The Consumer Protection Act, 2019* (unfair trade practices, product deficiency).
+     - *The Information Technology Act, 2000* (cyber offenses, data security, intermediary liability).
+     - *Civil/Criminal Defamation Provisions* (BNS / IPC brand protection).
+  3. *Primary Deliverable:* Autonomous generation of a downloadable **Executive PDF Legal Risk Advisory Dossier** for Corporate Legal Counsel.
+  4. *Core Technology Stack:* Python 3.10+, LangGraph state orchestration, Google Gemini LLM API, local persistent **ChromaDB** vector store, and ReportLab for PDF rendering.
+- **Action Items:** Update `ARCHITECTURE_DESIGN.md`, create dedicated `SOFTWARE_REQUIREMENTS_SPECIFICATION.md` with IEEE 830 compliant structure and clear placeholders.
+
 ---
 *(New discussion topics, trade-offs, and decisions will be logged here chronologically)*

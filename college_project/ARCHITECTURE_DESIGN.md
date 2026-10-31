@@ -1,4 +1,4 @@
-﻿# System Architecture & Technical Design 🏛️
+# System Architecture & Technical Design 🏛️
 
 This document stores technical designs, architecture diagrams, data models, agent loops, and integration schemas for the college project.
 
@@ -44,24 +44,45 @@ sequenceDiagram
 ### Agent 1: Data Ingestion & Monitoring Agent
 - **Role:** Data Harvester & Normalizer.
 - **Responsibilities:**
-  - Ingest public comments, product reviews, and social media posts referencing the company's products/features.
-  - Extract critical context: Timestamp, User Geography/Jurisdiction, Platform, and Topic/Feature discussed.
-  - Deliver clean, structured JSON payloads to Agent 2.
+  - Hybrid ingestion: Live streaming via Reddit API (PRAW) + offline batch evaluation via structured CSV/JSON file uploader.
+  - Ingest public comments, product reviews, and forum posts referencing company products/features.
+  - Extract critical context: Timestamp, User ID/Handle, Platform, Geolocation/Region tag, and Raw Content.
+  - Sanitize text (remove HTML, script injections, formatting noise) and deliver clean JSON payloads to Agent 2.
 
 ### Agent 2: Sentiment, Validity & Triage Agent
 - **Role:** Content Classifier & Risk Assessor.
 - **Responsibilities:**
   - **Sentiment Separation:** Categorize feed into Positive, Neutral, and Negative sentiments.
-  - **Validity & Authenticity Check:** Distinguish between genuine user grievances, factual claims of malfunction/fraud, competitive sabotage, and irrelevant noise/spam.
-  - **Triage & Routing:** Archive benign positive feedback; prioritize negative feedback carrying reputational or legal exposure for Agent 3.
+  - **Validity & Authenticity Rubric:** Distinguish between:
+    - *Spam / Bot Noise* (Ignored/Archived)
+    - *Subjective Discontent / Hyperbole* (Non-actionable, archived for product feedback)
+    - *Factual Grievance* (Actionable: specific claim of financial, physical, or service deficiency)
+    - *Defamation / Corporate Slander* (Actionable: targeted false factual claims harming reputation)
+  - **Triage & Routing:** Route only *Actionable* grievances to Agent 3 with an assigned urgency flag.
 
-### Agent 3: Multi-Jurisdictional Legal Consultation Agent
+### Agent 3: Statutory Legal Consultation Agent
 - **Role:** Autonomous Legal Analyst.
+- **Scope (Indian Law Frozen Scope):**
+  1. *The Consumer Protection Act, 2019* (Deficiency in service, misleading advertisements, unfair trade practices).
+  2. *The Information Technology Act, 2000* (Intermediary liability, digital fraud, data privacy violations).
+  3. *Bharatiya Nyaya Sanhita (BNS) / IPC* (Criminal defamation, corporate fraud).
 - **Responsibilities:**
-  - **Jurisdiction Identification:** Target the appropriate country and state law books (e.g., India IPC/BNS/IT Act, US Defamation/Consumer Protection, EU GDPR/DSA).
-  - **Statutory Cross-Referencing:** Identify whether the post alleges a civil/criminal wrongdoing (e.g., consumer fraud, product liability, defamation, breach of privacy, false advertising).
-  - **Section-Level Citation:** Pinpoint the exact statutory chapters, sections, penalties, and company rights or liabilities.
-  - **Actionable Report Generation:** Produce an executive legal advisory dossier outlining the incident, legal exposure rating, relevant provisions, and recommended next steps (e.g., cease-and-desist, customer remediation, public clarification).
+  - **Statutory Retrieval-Augmented Generation (RAG):** Query a local persistent ChromaDB vector store containing section-chunked Indian statutes.
+  - **Section-Level Citation:** Map the grievance to the exact Act, Chapter, Section, Subsection, and statutory penalties/remedies.
+  - **Risk Severity Grading:** Assign exposure rating (`Low`, `Medium`, `High`, `Critical`).
+  - **Executive Dossier Generation:** Trigger the PDF generation module (ReportLab) to compile an official executive legal risk advisory dossier for the Corporate Legal Counsel.
+
+---
+
+## 🛠️ Technology Stack
+
+| Layer | Selected Technology | Rationale / Viva Defense |
+| :--- | :--- | :--- |
+| **Agent Orchestration** | **LangGraph (Python)** | Industry-standard multi-agent state graph with cyclic loops, conditional routing, and state reducers. |
+| **LLM Inference Engine** | **Google Gemini (1.5 / 2.0)** | Large context window, strong statutory reasoning, native structured JSON output. |
+| **Vector Database** | **ChromaDB (Local / Embedded)** | Zero-cost, runs on local disk (`./chroma_data`), supports metadata filtering, seamlessly integrates with LangChain/LangGraph. |
+| **Ingestion Interfaces** | **Reddit API (PRAW) + CSV/JSON Batch Engine** | Guarantees testability during offline viva exams without internet flakiness, while demonstrating real API ingestion. |
+| **Document Export Engine** | **ReportLab (Python)** | Programmatic generation of enterprise-grade, styled PDF legal dossiers with embedded disclaimer. |
 
 ---
 *Maintained as the technical blueprint of the project.*
