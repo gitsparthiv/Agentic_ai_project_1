@@ -1,4 +1,4 @@
-﻿# Project Brainstorming, Discussions & Decisions Log 💬
+# Project Brainstorming, Discussions & Decisions Log 💬
 
 This document records discussions, thoughts, options weighed, and final conclusions reached for our college project.
 
@@ -30,6 +30,17 @@ This document records discussions, thoughts, options weighed, and final conclusi
 - **Official Tagline Selected:** *"Transforming Public Feedback into Autonomous Legal Intelligence."*
 - **Problem Statement Drafted:** Formulated academic problem statement covering the operational gap between public discourse monitoring and cross-jurisdictional statutory legal consultation.
 - **Updated Artifacts:** Logged into `REQUIREMENTS_GUIDELINES.md` and `DISCUSSIONS_LOG.md`.
+
+### Session 6: Critical Feasibility Review & Risk Evaluation (October 31, 2026)
+- **Context:** Conducted an unsparing, critical review of the project idea, technical bottlenecks, and prerequisites.
+- **Key Challenges Identified:**
+  1. *Agent 3 Citation Fidelity & Hallucination:* Risk of generating non-existent sections in legal advice.
+  2. *Agent 2 Validity Rubric:* Need for clear definition separating emotional opinions/hyperbole from actionable factual claims.
+  3. *Agent 1 Platform Limits:* API costs/restrictions (Twitter, Reddit, app stores) vs. synthetic or mock ingestion streams.
+  4. *RAG Section Chunking:* Need for hierarchical chunking of legal statutes rather than naive token splitting.
+  5. *Scope Control:* Strongly recommended bounding initial statutory scope to Indian Law (Consumer Protection, IT Act, Defamation).
+- **Deliverable Created:** Added [`CHALLENGES_AND_RISKS.md`](file:///d:/agentic_ai_project_1/college_project/CHALLENGES_AND_RISKS.md) as a technical reference for team collaborators.
+- **Next Steps:** Clarify cross-questions regarding data sources, jurisdiction scope, and report delivery format.
 
 ---
 *(New discussion topics, trade-offs, and decisions will be logged here chronologically)*
