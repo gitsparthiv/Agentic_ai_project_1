@@ -20,19 +20,16 @@ This document records discussions, thoughts, options weighed, and final conclusi
 
 ### Session 3: Project Naming & Brand Identity Brainstorming (October 31, 2026)
 - **Objective:** Propose academic, corporate-ready, and memorable project titles tailored for a college capstone presentation.
-- **Categorized Candidates Evaluated:**
-  - *Academic / Research-Grade:* LexSentinels, LexIntellect AI, JurisAI Sentinel.
-  - *Modern Tech & SaaS:* VeriLex, LexiGuard, Sentilaw.
-  - *Acronym / Capstone Style:* A.E.G.I.S., J.U.R.I.S., L.E.X.I.S.
 
 ### Session 4: Mental Model for Project Naming & Clarity Audit (October 31, 2026)
-- **User Doubt & Critique:**
-  1. Words like *Lex*, *Juris*, or *Sentinel* may require high vocabulary or sound overly cryptic to external examiners.
-  2. Should **"AI"** be explicitly in the title?
-- **Conclusion & Strategy:**
-  1. In a college viva / evaluation setting, **Clarity > Cleverness**. An examiner glances at your title for 5 seconds; they should instantly know what problem you solve.
-  2. Adding **"AI"** is definitely beneficial—it highlights that the system is an autonomous intelligence engine rather than a static legal database or manual dashboard.
-  3. Formulated the **"3-Pillar Mental Model"**: [Context/Input: Feedback/Brand] + [Core Engine: Legal/Law] + [Action/AI: Sentinel/Advisor/AI].
+- **User Doubt & Critique:** Plain English + explicit "AI" vs. archaic Latin terminology.
+- **Formulation:** 3-Pillar Naming Mental Model ([Domain] + [Problem] + [Technology]).
+
+### Session 5: Official Selection & Problem Statement Formulation (October 31, 2026)
+- **Final Decision:** **LegalAdvisor AI** chosen as the official project name.
+- **Official Tagline Selected:** *"Transforming Public Feedback into Autonomous Legal Intelligence."*
+- **Problem Statement Drafted:** Formulated academic problem statement covering the operational gap between public discourse monitoring and cross-jurisdictional statutory legal consultation.
+- **Updated Artifacts:** Logged into `REQUIREMENTS_GUIDELINES.md` and `DISCUSSIONS_LOG.md`.
 
 ---
 *(New discussion topics, trade-offs, and decisions will be logged here chronologically)*
