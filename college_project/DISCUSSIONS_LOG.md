@@ -23,8 +23,16 @@ This document records discussions, thoughts, options weighed, and final conclusi
 - **Categorized Candidates Evaluated:**
   - *Academic / Research-Grade:* LexSentinels, LexIntellect AI, JurisAI Sentinel.
   - *Modern Tech & SaaS:* VeriLex, LexiGuard, Sentilaw.
-  - *Acronym / Capstone Style:* A.E.G.I.S. (Autonomous Evaluation of Grievances & Legal Risk), J.U.R.I.S.
-- **Status:** Pending user selection.
+  - *Acronym / Capstone Style:* A.E.G.I.S., J.U.R.I.S., L.E.X.I.S.
+
+### Session 4: Mental Model for Project Naming & Clarity Audit (October 31, 2026)
+- **User Doubt & Critique:**
+  1. Words like *Lex*, *Juris*, or *Sentinel* may require high vocabulary or sound overly cryptic to external examiners.
+  2. Should **"AI"** be explicitly in the title?
+- **Conclusion & Strategy:**
+  1. In a college viva / evaluation setting, **Clarity > Cleverness**. An examiner glances at your title for 5 seconds; they should instantly know what problem you solve.
+  2. Adding **"AI"** is definitely beneficial—it highlights that the system is an autonomous intelligence engine rather than a static legal database or manual dashboard.
+  3. Formulated the **"3-Pillar Mental Model"**: [Context/Input: Feedback/Brand] + [Core Engine: Legal/Law] + [Action/AI: Sentinel/Advisor/AI].
 
 ---
 *(New discussion topics, trade-offs, and decisions will be logged here chronologically)*
