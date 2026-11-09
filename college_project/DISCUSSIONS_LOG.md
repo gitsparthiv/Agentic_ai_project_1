@@ -61,5 +61,16 @@ This document records discussions, thoughts, options weighed, and final conclusi
   4. *Core Technology Stack:* Python 3.10+, LangGraph state orchestration, Google Gemini LLM API, local persistent **ChromaDB** vector store, and ReportLab for PDF rendering.
 - **Action Items:** Update `ARCHITECTURE_DESIGN.md`, create dedicated `SOFTWARE_REQUIREMENTS_SPECIFICATION.md` with IEEE 830 compliant structure and clear placeholders.
 
+### Session 9: Day-to-Day Execution Plan & Milestone Scheduling (November 9, 2026)
+- **Objective:** Formulate a realistic, day-by-day engineering roadmap balancing college classes with development.
+- **Timeline Adopted:** 6 Weeks / 42 Days (Monday–Saturday active sprint, Sundays for review).
+  - *Week 1:* Legal Data Engineering & ChromaDB local persistence (Indian statutes).
+  - *Week 2:* Agent 1 Ingestion (PRAW Reddit + Offline CSV batch stream).
+  - *Week 3:* Agent 2 Sentiment & 4-Tier Validity Triage Engine.
+  - *Week 4:* Agent 3 Grounded Statutory RAG & Citation Validator.
+  - *Week 5:* LangGraph Multi-Agent State Graph & ReportLab PDF Dossier Generator.
+  - *Week 6:* Streamlit Interactive Demo Dashboard, 50-post Evaluation Benchmark, and Viva preparation.
+- **Deliverable Created:** Created [`DAY_TO_DAY_EXECUTION_PLAN.md`](file:///d:/agentic_ai_project_1/college_project/DAY_TO_DAY_EXECUTION_PLAN.md) with interactive checkboxes and explicit daily goals.
+
 ---
 *(New discussion topics, trade-offs, and decisions will be logged here chronologically)*
