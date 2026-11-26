@@ -1,13 +1,15 @@
 # LegalAdvisor AI: Data Flow Diagrams (DFD) Specification
-**Standard:** Yourdon–DeMarco / Gane–Sarson Balanced DFD Specification  
-**Aligned With:** [TECHNICAL_DESIGN_DOCUMENT.md](file:///d:/agentic_ai_project_1/college_project/TECHNICAL_DESIGN_DOCUMENT.md) (`Approved v1.0`, `ADR-001` to `ADR-008`)  
-**Status:** Ready for Academic Review & Draw.io / Diagram Export  
+
+**Standard:** Yourdon–DeMarco / Gane–Sarson Balanced DFD Specification
+**Aligned With:** [TECHNICAL_DESIGN_DOCUMENT.md](file:///d:/agentic_ai_project_1/college_project/TECHNICAL_DESIGN_DOCUMENT.md) (`Approved v1.0`, `ADR-001` to `ADR-008`)
+**Status:** Ready for Academic Review & Draw.io / Diagram Export
 
 ---
 
 ## 1. DFD Structural Rules & Level 0 $\leftrightarrow$ Level 1 Balancing Matrix
 
 To satisfy strict software engineering evaluation criteria:
+
 - **Level 0 (Context Diagram)** contains **zero Data Stores** and **one central System Process (`0.0`)**.
 - **Strict Balancing:** Every External Entity (`E1`–`E4`) and every boundary Data Flow entering or leaving `0.0` in Level 0 appears identically in Level 1.
 - **No Illegal Flows:** All flows pass through numbered Verb-Noun processes; there are zero Entity-to-Entity or Store-to-Store flows.
@@ -15,14 +17,14 @@ To satisfy strict software engineering evaluation criteria:
 
 ### Boundary Balancing Table
 
-| External Entity | Direction | Exact Data Flow Label | Level 0 Target | Level 1 Process |
-| :--- | :---: | :--- | :---: | :---: |
-| `E1`: Public Discourse Source | $\rightarrow$ System | `Raw Public Posts Stream & Author Metadata` | `0.0` | `1.0` |
-| `E2`: Corporate Legal Counsel | $\leftarrow$ System | `Executive Dossiers (PDF/MD), Draft Notices & Zero-Day Alerts` | `0.0` | `6.0` |
-| `E2`: Corporate Legal Counsel | $\rightarrow$ System | `HITL Review Decision (Approve / Reject / Escalate)` | `0.0` | `6.0` |
-| `E3`: PR & Customer Support Team | $\leftarrow$ System | `Service Grievance Callback Queue` | `0.0` | `2.0` |
-| `E4`: Knowledge & System Admin | $\rightarrow$ System | `Curated Bare Statutes JSON & Corporate Truth Docs` | `0.0` | `7.0` |
-| `E4`: Knowledge & System Admin | $\leftarrow$ System | `Ingestion Health & 50-Case Evaluation Metrics` | `0.0` | `7.0` |
+| External Entity                    |       Direction       | Exact Data Flow Label                                            | Level 0 Target | Level 1 Process |
+| :--------------------------------- | :--------------------: | :--------------------------------------------------------------- | :------------: | :-------------: |
+| `E1`: Public Discourse Source    | $\rightarrow$ System | `Raw Public Posts Stream & Author Metadata`                    |    `0.0`    |     `1.0`     |
+| `E2`: Corporate Legal Counsel    | $\leftarrow$ System | `Executive Dossiers (PDF/MD), Draft Notices & Zero-Day Alerts` |    `0.0`    |     `6.0`     |
+| `E2`: Corporate Legal Counsel    | $\rightarrow$ System | `HITL Review Decision (Approve / Reject / Escalate)`           |    `0.0`    |     `6.0`     |
+| `E3`: PR & Customer Support Team | $\leftarrow$ System | `Service Grievance Callback Queue`                             |    `0.0`    |     `2.0`     |
+| `E4`: Knowledge & System Admin   | $\rightarrow$ System | `Curated Bare Statutes JSON & Corporate Truth Docs`            |    `0.0`    |     `7.0`     |
+| `E4`: Knowledge & System Admin   | $\leftarrow$ System | `Ingestion Health & 50-Case Evaluation Metrics`                |    `0.0`    |     `7.0`     |
 
 ---
 
@@ -111,28 +113,90 @@ flowchart TD
 
 ### 4.1 Data Stores (`D1`–`D4`)
 
-| Store ID | Name | Physical Tech | Stored Data & Purpose |
-| :--- | :--- | :--- | :--- |
-| **`D1`** | **Statutory Knowledge Store** | ChromaDB (Collection 1) | Curated Indian Bare Statutes (`BNS 2023`, `IT Act 2000`, `IT Rules 2021`, `CPA 2019`) stored as Contextual-Trigger Child Chunks mapped to unbroken Parent Sections. |
-| **`D2`** | **Corporate Ground-Truth Store** | ChromaDB (Collection 2) | Internal corporate security whitepapers, SOC2/ISO compliance records, and official product disclosures queried by Agent 2A. |
-| **`D3`** | **Operational Incident, Cluster & Audit DB** | SQLite (`SqliteSaver`) / PostgreSQL | Durable LangGraph checkpoints, raw posts + SHA-256 hashes, 24h `CampaignCluster` records, PR callback tickets, and Human Counsel HITL audit trail. |
-| **`D4`** | **Legal Artifacts Repository** | Filesystem / Object Store | Compiled Executive Counsel Dossiers (PDF/Markdown), Rule 3(1)(b) Takedown requests, and direct C&D / *Ashok Kumar* Log Preservation notices. |
+| Store ID         | Name                                               | Physical Tech                         | Stored Data & Purpose                                                                                                                                                       |
+| :--------------- | :------------------------------------------------- | :------------------------------------ | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **`D1`** | **Statutory Knowledge Store**                | ChromaDB (Collection 1)               | Curated Indian Bare Statutes (`BNS 2023`, `IT Act 2000`, `IT Rules 2021`, `CPA 2019`) stored as Contextual-Trigger Child Chunks mapped to unbroken Parent Sections. |
+| **`D2`** | **Corporate Ground-Truth Store**             | ChromaDB (Collection 2)               | Internal corporate security whitepapers, SOC2/ISO compliance records, and official product disclosures queried by Agent 2A.                                                 |
+| **`D3`** | **Operational Incident, Cluster & Audit DB** | SQLite (`SqliteSaver`) / PostgreSQL | Durable LangGraph checkpoints, raw posts + SHA-256 hashes, 24h `CampaignCluster` records, PR callback tickets, and Human Counsel HITL audit trail.                        |
+| **`D4`** | **Legal Artifacts Repository**               | Filesystem / Object Store             | Compiled Executive Counsel Dossiers (PDF/Markdown), Rule 3(1)(b) Takedown requests, and direct C&D / *Ashok Kumar* Log Preservation notices.                              |
 
 ### 4.2 Process Dictionary (`1.0`–`7.0`)
 
-| Process | Title | Core Transformation Logic |
-| :--- | :--- | :--- |
-| **`1.0`** | **Ingest, Sanitize & Hash Discourse** | Polls Reddit `PRAW` or loads mock replay streams; strips HTML/scripts; wraps payloads in `<UNTRUSTED_POST_TEXT>`; generates tamper-evident SHA-256 snapshot hash. |
-| **`2.0`** | **Execute Two-Gate Legal Triage** | Stage 1A deterministic regex brand-match pruning; Stage 1B Gemini Flash *Ollman Test* factuality filter; Gate 2 *De Minimis* severity gate routing ordinary service disputes to `E3` and severe claims to `3.0`. |
-| **`3.0`** | **Deduplicate & Cluster Campaigns** | Compares `falsifiable_claim` embeddings against active 24-hour clusters in `D3` (`cosine_similarity > 0.85`). Merges coordinated bot smears into existing `CampaignCluster` records; forwards only novel claims to `4.0`. |
-| **`4.0`** | **Run Adversarial Verification** | Parallel LangGraph fan-out: Agent 2A queries `D2` to refute claim; Agent 2B scores technical specificity for hidden zero-day leaks; Agent 2C outputs `CLASS_A_BASELESS_SMEAR`, `CLASS_B_ZERO_DAY_AMBIGUITY`, or `CLASS_C_SUBSTANTIATED_CRISIS`. |
-| **`5.0`** | **Retrieve Statutes, Draft & Validate Citations** | Queries `D1` via Parent-Child retrieval; branches on Author Identifiability (`IDENTIFIED` vs `ANONYMOUS`); enforces Deterministic Python Citation Guardrail (`max_retries=2`). |
-| **`6.0`** | **Compile Dossier, Handle HITL & Archive** | Renders PDF/Markdown packages into `D4`; presents dossier/alerts to `E2`; records final `APPROVED` / `REJECTED` counsel actions into `D3`. |
-| **`7.0`** | **Manage Knowledge Base & Run Evaluation** | Handles ingestion of curated Bare Statutes into `D1`, corporate records into `D2`, and runs the 50-case `eval_dataset.json` regression suite for `E4`. |
+| Process           | Title                                                   | Core Transformation Logic                                                                                                                                                                                                                               |
+| :---------------- | :------------------------------------------------------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **`1.0`** | **Ingest, Sanitize & Hash Discourse**             | Polls Reddit `PRAW` or loads mock replay streams; strips HTML/scripts; wraps payloads in `<UNTRUSTED_POST_TEXT>`; generates tamper-evident SHA-256 snapshot hash.                                                                                   |
+| **`2.0`** | **Execute Two-Gate Legal Triage**                 | Stage 1A deterministic regex brand-match pruning; Stage 1B Gemini Flash *Ollman Test* factuality filter; Gate 2 *De Minimis* severity gate routing ordinary service disputes to `E3` and severe claims to `3.0`.                                |
+| **`3.0`** | **Deduplicate & Cluster Campaigns**               | Compares `falsifiable_claim` embeddings against active 24-hour clusters in `D3` (`cosine_similarity > 0.85`). Merges coordinated bot smears into existing `CampaignCluster` records; forwards only novel claims to `4.0`.                     |
+| **`4.0`** | **Run Adversarial Verification**                  | Parallel LangGraph fan-out: Agent 2A queries `D2` to refute claim; Agent 2B scores technical specificity for hidden zero-day leaks; Agent 2C outputs `CLASS_A_BASELESS_SMEAR`, `CLASS_B_ZERO_DAY_AMBIGUITY`, or `CLASS_C_SUBSTANTIATED_CRISIS`. |
+| **`5.0`** | **Retrieve Statutes, Draft & Validate Citations** | Queries `D1` via Parent-Child retrieval; branches on Author Identifiability (`IDENTIFIED` vs `ANONYMOUS`); enforces Deterministic Python Citation Guardrail (`max_retries=2`).                                                                  |
+| **`6.0`** | **Compile Dossier, Handle HITL & Archive**        | Renders PDF/Markdown packages into `D4`; presents dossier/alerts to `E2`; records final `APPROVED` / `REJECTED` counsel actions into `D3`.                                                                                                    |
+| **`7.0`** | **Manage Knowledge Base & Run Evaluation**        | Handles ingestion of curated Bare Statutes into `D1`, corporate records into `D2`, and runs the 50-case `eval_dataset.json` regression suite for `E4`.                                                                                          |
 
 ---
 
-## 5. Level 2 DFD — Decomposition of Process `5.0` (Statutory RAG, Guardrail & Identifiability)
+## 5. Level 2 DFDs — Core AI Agents Decomposition (`2.0`, `4.0`, and `5.0`)
+
+To guarantee full architectural transparency across all three autonomous agents while keeping simple utility processes unbloated, Level 2 decomposition is provided for Processes **`2.0`**, **`4.0`**, and **`5.0`**. Every boundary input/output matches Level 1 one-to-one.
+
+### 5.1 Level 2 DFD — Process `2.0`: Two-Gate Legal Triage (`Agent 1`)
+Exposes the internal Funnel (`ADR-001`): Deterministic Regex Pruning (`2.1`) $\rightarrow$ *Ollman Test* Factuality Parsing (`2.2`) $\rightarrow$ Section 25 BNS *De Minimis* Severity Routing (`2.3`).
+
+```mermaid
+flowchart TD
+    In1(("From 1.0: Normalized Brand-Relevant Post"))
+    D3[("D3: Incident, Cluster & Audit DB")]
+    E3["E3: PR & Customer Support Team"]
+    Out3(("To 3.0: Falsifiable Statutory Claim & Post Context"))
+
+    P21(("2.1 Apply Deterministic Brand & Length Regex Filter"))
+    P22(("2.2 Classify Semantic Factuality via Ollman Test"))
+    P23(("2.3 Evaluate Statutory Severity via De Minimis Gate"))
+
+    In1 -->|"Normalized Brand-Relevant Post"| P21
+    P21 -->|"Discarded Junk & Non-Target Audit Log"| D3
+    P21 -->|"Candidate Post (UNTRUSTED_POST_TEXT Wrapper)"| P22
+
+    P22 -->|"Discarded Noise & Triage Audit Log (Opinion/Hyperbole)"| D3
+    P22 -->|"Falsifiable Claim & Modality Metadata"| P23
+
+    P23 -->|"Service Grievance Ticket Record"| D3
+    P23 -->|"Service Grievance Callback Queue"| E3
+    P23 -->|"Falsifiable Statutory Claim & Post Context"| Out3
+```
+
+---
+
+### 5.2 Level 2 DFD — Process `4.0`: Adversarial Dual-Hypothesis Verification (`Agent 2A/2B/2C`)
+Exposes the parallel LangGraph fan-out (`ADR-002`) preventing Streisand Effect lawsuits against real whistleblowers or undetected security bugs.
+
+```mermaid
+flowchart TD
+    In3(("From 3.0: Unique Escalated Claim Payload"))
+    D2[("D2: Corporate Ground-Truth Store")]
+    D3[("D3: Incident, Cluster & Audit DB")]
+    Out5(("To 5.0: Class A Verified Smear Payload"))
+    Out6(("To 6.0: Class B Zero-Day / Class C Crisis Alert"))
+
+    P41(("4.1 Execute Corporate Defense Inquiry (Agent 2A)"))
+    P42(("4.2 Execute Red-Team Specificity Audit (Agent 2B)"))
+    P43(("4.3 Synthesize Tri-State Verdict (Agent 2C)"))
+
+    In3 -->|"Unique Escalated Claim Payload"| P41
+    In3 -->|"Unique Escalated Claim Payload"| P42
+
+    D2 -->|"Corporate Policies & Architecture Refutations"| P41
+
+    P41 -->|"Defense Hypothesis & Internal RAG Citations"| P43
+    P42 -->|"Technical Specificity Score & Zero-Day Markers"| P43
+
+    P43 -->|"Tri-State Risk Assessment & Audit Record"| D3
+    P43 -->|"Class A Verified Smear Payload"| Out5
+    P43 -->|"Class B Zero-Day / Class C Crisis Alert"| Out6
+```
+
+---
+
+### 5.3 Level 2 DFD — Process `5.0`: Statutory RAG, Guardrail & Identifiability (`Agent 3`)
 
 Visualizes the internal data flow and cyclical self-correction loop inside Agent 3 (`ADR-003`, `ADR-004`, `ADR-005`).
 
@@ -163,5 +227,6 @@ flowchart TD
 ---
 
 ## 6. Document Alignment Warning (Pre-Submission Action Item)
+
 > [!WARNING]
 > **SRS & Legacy Architecture Sync Required:** [SOFTWARE_REQUIREMENTS_SPECIFICATION.md](file:///d:/agentic_ai_project_1/college_project/SOFTWARE_REQUIREMENTS_SPECIFICATION.md) and [ARCHITECTURE_DESIGN.md](file:///d:/agentic_ai_project_1/college_project/ARCHITECTURE_DESIGN.md) were authored prior to the architectural grilling session (`November 1–18, 2026`). Before college submission, update those two files so their agent numbering, external actors (`E3: PR & Support`), and 4-store persistence match `TECHNICAL_DESIGN_DOCUMENT.md` v1.0 and these DFDs verbatim.
