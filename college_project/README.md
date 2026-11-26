@@ -56,6 +56,14 @@ d:\agentic_ai_project_1\college_project\
    * Detailed chronological log of discussions, trade-offs, ideas, and agreed solutions.
 9. [ARCHITECTURE_DESIGN.md](file:///d:/agentic_ai_project_1/college_project/ARCHITECTURE_DESIGN.md)
    * Visual diagrams (Mermaid), system components, data models, and Agentic AI workflows.
+10. [RULES.md](file:///d:/agentic_ai_project_1/college_project/RULES.md) (and root [GEMINI.md](file:///d:/agentic_ai_project_1/GEMINI.md))
+   * Standing operational contract: Brutal honesty directive and non-negotiable portfolio-grade engineering benchmark.
+11. [TECHNICAL_DESIGN_DOCUMENT.md](file:///d:/agentic_ai_project_1/college_project/TECHNICAL_DESIGN_DOCUMENT.md)
+   * Formal technical design document (TDD/RFC) capturing architectural decisions, trade-offs, and drill records.
+12. [VIVA_AND_INTERVIEW_DEFENSE.md](file:///d:/agentic_ai_project_1/college_project/VIVA_AND_INTERVIEW_DEFENSE.md)
+   * Examiner-tested Q&A bank, architectural defenses, and strict v1 engineering guardrails.
+13. [DATA_FLOW_DIAGRAMS.md](file:///d:/agentic_ai_project_1/college_project/DATA_FLOW_DIAGRAMS.md)
+   * Balanced Yourdon–DeMarco Level 0, Level 1, and Level 2 Data Flow Diagrams (`E1`–`E4`, `P1`–`P7`, `D1`–`D4`).
 
 ---
 *Created: October 31, 2026 | College Project Documentation Space*
