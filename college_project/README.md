@@ -66,6 +66,8 @@ d:\agentic_ai_project_1\college_project\
    * Balanced Yourdon–DeMarco Level 0, Level 1, and Level 2 Data Flow Diagrams (`E1`–`E4`, `P1`–`P7`, `D1`–`D4`).
 14. [ER_DIAGRAM.md](file:///d:/agentic_ai_project_1/college_project/ER_DIAGRAM.md)
    * Normalized 3NF Entity-Relationship Diagram (`erDiagram`) and production SQLite DDL for `D3` across `D1`–`D4`.
+15. [OUTBOUND_MENTOR_PLAYBOOK.md](file:///d:/agentic_ai_project_1/college_project/OUTBOUND_MENTOR_PLAYBOOK.md)
+   * Reply-probability-ranked LinkedIn outreach directory, NSEC alumni strategy, and copy-paste validation templates for the 3-person team.
 
 ---
 *Created: October 31, 2026 | College Project Documentation Space*
