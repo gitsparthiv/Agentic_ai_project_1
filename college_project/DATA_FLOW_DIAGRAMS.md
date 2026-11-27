@@ -139,6 +139,7 @@ flowchart TD
 To guarantee full architectural transparency across all three autonomous agents while keeping simple utility processes unbloated, Level 2 decomposition is provided for Processes **`2.0`**, **`4.0`**, and **`5.0`**. Every boundary input/output matches Level 1 one-to-one.
 
 ### 5.1 Level 2 DFD — Process `2.0`: Two-Gate Legal Triage (`Agent 1`)
+
 Exposes the internal Funnel (`ADR-001`): Deterministic Regex Pruning (`2.1`) $\rightarrow$ *Ollman Test* Factuality Parsing (`2.2`) $\rightarrow$ Section 25 BNS *De Minimis* Severity Routing (`2.3`).
 
 ```mermaid
@@ -167,6 +168,7 @@ flowchart TD
 ---
 
 ### 5.2 Level 2 DFD — Process `4.0`: Adversarial Dual-Hypothesis Verification (`Agent 2A/2B/2C`)
+
 Exposes the parallel LangGraph fan-out (`ADR-002`) preventing Streisand Effect lawsuits against real whistleblowers or undetected security bugs.
 
 ```mermaid
@@ -226,7 +228,7 @@ flowchart TD
 
 ---
 
-## 6. Document Alignment Warning (Pre-Submission Action Item)
+## 6. Document Alignment Status
 
-> [!WARNING]
-> **SRS & Legacy Architecture Sync Required:** [SOFTWARE_REQUIREMENTS_SPECIFICATION.md](file:///d:/agentic_ai_project_1/college_project/SOFTWARE_REQUIREMENTS_SPECIFICATION.md) and [ARCHITECTURE_DESIGN.md](file:///d:/agentic_ai_project_1/college_project/ARCHITECTURE_DESIGN.md) were authored prior to the architectural grilling session (`November 1–18, 2026`). Before college submission, update those two files so their agent numbering, external actors (`E3: PR & Support`), and 4-store persistence match `TECHNICAL_DESIGN_DOCUMENT.md` v1.0 and these DFDs verbatim.
+> [!NOTE]
+> **Aligned Across Core Blueprints:** [SOFTWARE_REQUIREMENTS_SPECIFICATION.md](file:///d:/agentic_ai_project_1/college_project/SOFTWARE_REQUIREMENTS_SPECIFICATION.md) (`v2.0`) and [ARCHITECTURE_DESIGN.md](file:///d:/agentic_ai_project_1/college_project/ARCHITECTURE_DESIGN.md) (`v2.0`) are now synchronized with [TECHNICAL_DESIGN_DOCUMENT.md](file:///d:/agentic_ai_project_1/college_project/TECHNICAL_DESIGN_DOCUMENT.md) (`Approved v1.0`), these DFDs (`E1`–`E4`, `1.0`–`7.0`, `D1`–`D4`), and the relational `D3` schema in [ER_DIAGRAM.md](file:///d:/agentic_ai_project_1/college_project/ER_DIAGRAM.md).

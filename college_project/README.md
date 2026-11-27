@@ -27,7 +27,7 @@ d:\agentic_ai_project_1\college_project\
 | Phase | Milestone / College Step | Status | Key Deliverable |
 | :---: | :--- | :---: | :--- |
 | **Phase 1** | Problem Statement, Scope & Project Identity | ✅ Completed | Problem Definition, Scope & Name Guide |
-| **Phase 2** | Requirements Gathering & College Step Approval | 🟡 In Progress | Software Requirements Specification (SRS) |
+| **Phase 2** | Requirements Gathering & College Step Approval | 🟢 Completed | Software Requirements Specification (SRS) & ER Schema |
 | **Phase 3** | System Architecture & Detailed Daily Schedule | ✅ Completed | Architecture Blueprint, Daily Execution Plan & Excel Tracker |
 | **Phase 4** | Core Engine & Backend Prototype | ⚪ Not Started | API, Agent Loops, Tools & Database |
 | **Phase 5** | Frontend / User Interface & Client Experience | ⚪ Not Started | Interactive Web App & Visual Dashboards |
@@ -64,6 +64,8 @@ d:\agentic_ai_project_1\college_project\
    * Examiner-tested Q&A bank, architectural defenses, and strict v1 engineering guardrails.
 13. [DATA_FLOW_DIAGRAMS.md](file:///d:/agentic_ai_project_1/college_project/DATA_FLOW_DIAGRAMS.md)
    * Balanced Yourdon–DeMarco Level 0, Level 1, and Level 2 Data Flow Diagrams (`E1`–`E4`, `P1`–`P7`, `D1`–`D4`).
+14. [ER_DIAGRAM.md](file:///d:/agentic_ai_project_1/college_project/ER_DIAGRAM.md)
+   * Normalized 3NF Entity-Relationship Diagram (`erDiagram`) and production SQLite DDL for `D3` across `D1`–`D4`.
 
 ---
 *Created: October 31, 2026 | College Project Documentation Space*

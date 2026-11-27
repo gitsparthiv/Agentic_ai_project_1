@@ -1,273 +1,132 @@
 # Software Requirements Specification (SRS)
-## For
-## **LegalAdvisor AI**
-### *An Autonomous Multi-Agent Framework for Public Discourse Triage and Statutory Risk Consultation*
+## Project: LegalAdvisor AI — Autonomous Corporate Defamation Defense & Statutory Risk Consultation
 
----
-
-**Prepared by:** [Student Name(s) / Team ID - Fill In]  
-**Roll Number(s):** [Roll Numbers - Fill In]  
-**Academic Year:** 2026–2027  
-**Department:** Computer Science & Engineering / Information Technology  
-**Institution:** [College / University Name - Fill In]  
-**Supervisor / Guide:** [Project Guide / Professor Name - Fill In]  
-**Document Status:** Working Draft (Phase 2 Deliverable)  
-**Date:** November 1, 2026  
-
----
-
-## 📑 Table of Contents
-
-1. [Introduction](#1-introduction)
-   - 1.1 [Purpose](#11-purpose)
-   - 1.2 [Document Conventions](#12-document-conventions)
-   - 1.3 [Intended Audience](#13-intended-audience)
-   - 1.4 [Project Scope](#14-project-scope)
-   - 1.5 [References](#15-references)
-2. [Overall Description](#2-overall-description)
-   - 2.1 [Product Perspective](#21-product-perspective)
-   - 2.2 [Product Functions Summary](#22-product-functions-summary)
-   - 2.3 [User Classes and Characteristics (Actors)](#23-user-classes-and-characteristics-actors)
-   - 2.4 [Operating Environment & Tech Stack](#24-operating-environment--tech-stack)
-   - 2.5 [Design and Implementation Constraints](#25-design-and-implementation-constraints)
-   - 2.6 [Assumptions and Dependencies](#26-assumptions-and-dependencies)
-3. [Specific Functional Requirements](#3-specific-functional-requirements)
-   - 3.1 [Module 1: Ingestion & Normalization Engine (Agent 1)](#31-module-1-ingestion--normalization-engine-agent-1)
-   - 3.2 [Module 2: Sentiment, Authenticity & Validity Triage (Agent 2)](#32-module-2-sentiment-authenticity--validity-triage-agent-2)
-   - 3.3 [Module 3: Statutory Legal Consultation via RAG (Agent 3)](#33-module-3-statutory-legal-consultation-via-rag-agent-3)
-   - 3.4 [Module 4: Executive Dossier PDF Generation](#34-module-4-executive-dossier-pdf-generation)
-   - 3.5 [Module 5: System Administration & Vector Knowledge Base Management](#35-module-5-system-administration--vector-knowledge-base-management)
-4. [External Interface Requirements](#4-external-interface-requirements)
-   - 4.1 [User Interfaces](#41-user-interfaces)
-   - 4.2 [Software Interfaces](#42-software-interfaces)
-   - 4.3 [Hardware Interfaces](#43-hardware-interfaces)
-5. [Non-Functional Requirements (NFRs)](#5-non-functional-requirements-nfrs)
-   - 5.1 [Performance Requirements](#51-performance-requirements)
-   - 5.2 [Accuracy & Hallucination Mitigation](#52-accuracy--hallucination-mitigation)
-   - 5.3 [Security & Confidentiality](#53-security--confidentiality)
-   - 5.4 [Maintainability & Modularity](#54-maintainability--modularity)
-6. [Appendices](#6-appendices)
-   - 6.1 [Appendix A: Acronyms & Glossary](#61-appendix-a-acronyms--glossary)
-   - 6.2 [Appendix B: Legal Disclaimer](#62-appendix-b-legal-disclaimer)
+**Version:** `2.0` (Synced with `TDD v1.0`, `DFD Spec`, and `D3 ER Schema`)
+**Standard:** IEEE Std 830 / Academic Capstone Specification
+**Academic Institution:** Netaji Subhash Engineering College (NSEC) — Final-Year Capstone Project
+**Team / Roll Numbers / Faculty Guide:** `[Fill In: Team Members, Roll Numbers, Faculty Guide]`
+**Aligned Blueprints:** [TECHNICAL_DESIGN_DOCUMENT.md](file:///d:/agentic_ai_project_1/college_project/TECHNICAL_DESIGN_DOCUMENT.md) | [DATA_FLOW_DIAGRAMS.md](file:///d:/agentic_ai_project_1/college_project/DATA_FLOW_DIAGRAMS.md) | [ER_DIAGRAM.md](file:///d:/agentic_ai_project_1/college_project/ER_DIAGRAM.md)
 
 ---
 
 ## 1. Introduction
 
 ### 1.1 Purpose
-This Software Requirements Specification (SRS) document defines the complete functional, behavioural, and non-functional specifications for **LegalAdvisor AI (Version 1.0)**. It serves as the primary technical blueprint for system development, college project evaluation, and verification testing.
+This Software Requirements Specification (SRS) defines the functional, external interface, data persistence, security, and evaluation requirements for **LegalAdvisor AI**. The specification provides a verified contract for academic evaluation, viva examination, and Python/React implementation.
 
-### 1.2 Document Conventions
-- This document conforms to the **IEEE Std 830-1998** standard.
-- Requirement Identifiers:
-  - `FR-x.x`: Functional Requirements (mandatory system actions).
-  - `NFR-x.x`: Non-Functional Requirements (performance, security, accuracy limits).
-- The keyword **"shall"** indicates a mandatory system capability; **"should"** indicates a desirable feature; **"may"** denotes optional scope.
+### 1.2 Problem Statement & Scope
+Modern enterprises face sustained reputational and regulatory exposure from public forum discourse (e.g., Reddit threads, developer forums, social feeds). Existing monitoring tools conflate protected consumer speech with malicious defamatory falsehoods—and fail to catch genuine zero-day security disclosures buried inside hostile complaints.
 
-### 1.3 Intended Audience
-- **Project Evaluation Committee / Viva Examiners:** To verify academic requirements, system design rigor, and implementation feasibility.
-- **Project Guide / Supervisor:** To track milestone completion against college curriculum deadlines.
-- **Development Team:** To guide implementation, data schemas, and integration testing.
+**LegalAdvisor AI** operates from the **defensive perspective of the target Company/Brand** under **Indian Statutory Law**. It:
+1. Ingests live (`PRAW`) and offline replay discourse streams, deduplicating coordinated smear campaigns across a 24-hour semantic window.
+2. Applies a Two-Gate Jurisprudence Filter (*Ollman Test* + *De Minimis* rule) so fair criticism is ignored and ordinary service complaints go strictly to PR/Customer Support (`E3`).
+3. Executes a parallel **Adversarial Dual-Hypothesis Engine** (`Agent 2A` vs `Agent 2B` $\rightarrow$ `Agent 2C`) to avoid filing catastrophic lawsuits against genuine security whistleblowers (`CLASS_B_ZERO_DAY_AMBIGUITY`).
+4. Runs deterministic citation-guarded Statutory RAG (`Agent 3`) over curated Indian Bare Statutes (`D1`) to draft takedown notices, Cease & Desist / *Ashok Kumar* preservation notices, and tamper-evident Executive Dossiers (`D4`), gated strictly behind **Human-in-the-Loop (HITL)** Corporate Legal Counsel sign-off (`E2`).
 
-### 1.4 Project Scope
-**LegalAdvisor AI** is an autonomous multi-agent software framework designed to bridge the operational gap between unstructured public web discourse and corporate statutory compliance. The system:
-- Automates the monitoring and ingestion of online consumer comments referencing enterprise products and services.
-- Employs an intelligent triage agent to filter genuine factual consumer grievances and corporate defamation from emotional hyperbole and spam.
-- Utilizes Retrieval-Augmented Generation (RAG) over a dedicated Indian statutory law database to cite exact legislative sections, quantify corporate legal exposure, and compile an official, downloadable **Executive Legal Risk Advisory Dossier (PDF)**.
-
-**Out-of-Scope (Non-Goals):**
-- The system **shall not** replace certified legal practitioners.
-- The system **shall not** automatically publish public responses or initiate legal litigation.
-
-### 1.5 References
-- IEEE Std 830-1998: *IEEE Recommended Practice for Software Requirements Specifications*.
-- *The Consumer Protection Act, 2019* (Ministry of Consumer Affairs, Food and Public Distribution, Government of India).
-- *The Information Technology Act, 2000* (Ministry of Electronics and Information Technology, Government of India).
-- *Bharatiya Nyaya Sanhita (BNS), 2023 / Indian Penal Code (IPC)* (Defamation provisions).
-- LangGraph & LangChain Documentation (Multi-Agent State Orchestration).
+### 1.3 Definitions, Acronyms & Legal Scope
+| Term | Definition |
+| :--- | :--- |
+| **BNS 2023** | Bharatiya Nyaya Sanhita, 2023 (Section 356 Criminal Defamation; Section 25 *De Minimis* principle) |
+| **IT Act 2000** | Information Technology Act, 2000 (Sections 43A, 66C, 66D, 79 Safe Harbor) |
+| **IT Rules 2021** | IT (Intermediary Guidelines and Digital Media Ethics Code) Rules, 2021 (`Rule 3(1)(b)(v)` & `Rule 3(2)`) |
+| **CPA 2019** | Consumer Protection Act, 2019 |
+| **Repealed Blocklist** | `IPC 499/500` and struck-down `IT Act 66A` — strictly blocked from citation output |
+| **HITL** | Human-in-the-Loop mandatory legal counsel approval (`E2`) |
 
 ---
 
 ## 2. Overall Description
 
-### 2.1 Product Perspective
-LegalAdvisor AI is a standalone decision-support application integrating social listening with AI-driven legal statutory analysis. The architecture coordinates three autonomous agents orchestrated via a directed state graph.
+### 2.1 System Perspective & Multi-Store Boundary
+The system is structured as a FastAPI + LangGraph stateful backend backed by four persistent stores (`D1`–`D4`) and a planned React/Next.js HITL Counsel Review UI (`client/`):
+- **`D1` (ChromaDB):** Curated Indian Bare Statutes & IT Rules Parent-Child Vector Store.
+- **`D2` (ChromaDB):** Corporate Ground-Truth Store (SOC2 controls, architecture specs, privacy policies).
+- **`D3` (SQLite + `SqliteSaver`):** 3NF relational operational audit, campaign cluster, breach mapping, and HITL DB (`ER_DIAGRAM.md`), co-hosted with LangGraph workflow checkpoints.
+- **`D4` (Local Repository):** Generated PDF/Markdown dossiers & legal notice drafts verified via SHA-256 hashes.
 
-```
-+--------------------------------------------------------------------------+
-|                            LEGALADVISOR AI                               |
-|                                                                          |
-|  [Reddit API / CSV Data]                                                 |
-|            |                                                             |
-|            v                                                             |
-|  +--------------------+      +--------------------+                      |
-|  | Agent 1: Harvester | ---> | Agent 2: Triage    |                      |
-|  +--------------------+      +--------------------+                      |
-|                                        | (Actionable Dispute)            |
-|                                        v                                 |
-|                              +--------------------+                      |
-|                              | Agent 3: Legal RAG | <-> [ChromaDB: Acts] |
-|                              +--------------------+                      |
-|                                        |                                 |
-|                                        v                                 |
-|                          +----------------------------+                  |
-|                          | Executive PDF Dossier Gen  |                  |
-|                          +----------------------------+                  |
-|                                        |                                 |
-|                                        v                                 |
-|                         [Corporate Legal Counsel]                        |
-+--------------------------------------------------------------------------+
-```
-
-### 2.2 Product Functions Summary
-1. **Multi-Source Ingestion:** Continuous polling of public platforms (Reddit API) paired with batch file upload (CSV/JSON) for offline testing.
-2. **Two-Stage Discourse Triage:** Sentiment analysis coupled with a validity rubric (filtering out spam and hyperbole; prioritizing actionable grievances).
-3. **Statutory Clause Retrieval:** Section-aware semantic vector search across Indian statutory codes.
-4. **Autonomous Risk Grading:** Classification of corporate liability into `Low`, `Medium`, `High`, and `Critical` tiers.
-5. **Executive Dossier Export:** Programmatic compilation of detailed legal advisory reports into styled PDF artifacts.
-
-### 2.3 User Classes and Characteristics (Actors)
-The system recognizes exactly two user roles:
-
-1. **Corporate Legal Counsel / Compliance Officer (Primary Actor):**
-   - *Profile:* Corporate advocate, compliance lead, or risk officer.
-   - *Interactions:* Inspects high-risk incidents, verifies cited statutory sections, reviews recommended remediation actions, and downloads PDF advisory dossiers.
-2. **System Administrator / Knowledge Base Admin (Secondary Actor):**
-   - *Profile:* Technical operator or developer.
-   - *Interactions:* Uploads and updates statutory law books, monitors vector database embeddings in ChromaDB, configures API keys, and runs offline batch test pipelines.
-
-### 2.4 Operating Environment & Tech Stack
-- **Programming Language:** Python 3.10+
-- **Agent Orchestration Framework:** LangGraph / LangChain
-- **LLM Inference Engine:** Google Gemini (1.5 / 2.0 Flash)
-- **Vector Database:** ChromaDB (Local persistent embedded store)
-- **Document Export Engine:** ReportLab
-- **Data Ingestion Interface:** PRAW (Python Reddit API Wrapper) + Python CSV/JSON parser
-- **Host OS:** Windows 10/11, Linux (Ubuntu 22.04+), or macOS
-
-### 2.5 Design and Implementation Constraints
-- **Statutory Boundary:** Initial knowledge base is strictly bounded to Indian statutory law (Consumer Protection Act 2019, IT Act 2000, and BNS/IPC Defamation clauses).
-- **Offline Defense Constraint:** System must operate cleanly during college evaluation using local mock CSV files without requiring live social media connectivity.
-- **Legal Compliance:** Every generated report must carry an uneditable Non-Attorney Legal Disclaimer.
-
-### 2.6 Assumptions and Dependencies
-- Valid Google Gemini API key with sufficient rate limits.
-- Public forum comments are accessible in plain English (or Romanized Hindi).
-- Official legislative PDFs from `indiacode.nic.in` are parsed and pre-indexed prior to query execution.
+### 2.2 External Entities (`E1`–`E4`)
+1. **`E1`: Public Discourse Source** — Live Reddit stream (`PRAW_LIVE`) and deterministic offline replay dataset (`MOCK_REPLAY`).
+2. **`E2`: Corporate Legal Counsel (HITL Reviewer)** — Reviews Class A/B/C dossiers, CISO escalation alerts, and approves/rejects draft notices. Zero automated legal transmission occurs without `E2` sign-off.
+3. **`E3`: PR & Customer Support Team** — Receives verified `SERVICE_GRIEVANCE` callback tickets isolated during Triage Gate 2.
+4. **`E4`: System & Knowledge Base Admin** — Ingests `D1`/`D2` corpora and executes the 50-case `eval_dataset.json` benchmark suite.
 
 ---
 
-## 3. Specific Functional Requirements
+## 3. Specific Functional Requirements (Aligned to DFD Processes `1.0`–`7.0`)
 
-### 3.1 Module 1: Ingestion & Normalization Engine (Agent 1)
-- **FR-1.1:** The system shall support ingesting comments from the Reddit API using specified keywords or subreddit targets.
-- **FR-1.2:** The system shall support offline batch ingestion via uploaded CSV and JSON files containing public post records.
-- **FR-1.3:** The system shall normalize each ingested record into a standardized JSON schema containing:
-  - `post_id` (String, Unique)
-  - `timestamp` (ISO 8601 Format)
-  - `platform` (String: e.g., "Reddit", "Mock_Dataset")
-  - `author_id` (String)
-  - `raw_text` (String)
-- **FR-1.4:** The system shall sanitize `raw_text` by removing HTML markup, non-printable characters, and malformed script payloads.
+### 3.1 Module 1: Discourse Ingestion, Hygiene & Campaign Clustering (Processes `1.0` & `3.0`, `ADR-006`/`ADR-008`)
+- **FR-1.1:** The system shall support dual-mode ingestion: live subreddit polling via `PRAW` (`PRAW_LIVE`) and deterministic offline JSON replay (`MOCK_REPLAY`) for reproducible demos and evaluations.
+- **FR-1.2:** Every incoming post shall undergo HTML/script stripping, duplicate key verification `(platform, platform_post_id)`, SHA-256 content hashing, and extraction of `author_identifiability` (`IDENTIFIED` vs `ANONYMOUS`).
+- **FR-1.3:** Untrusted user text passed to any LLM prompt shall be isolated inside `<UNTRUSTED_POST_TEXT>` boundary delimiters to neutralize prompt-injection payloads.
+- **FR-1.4:** Escalated factual claims shall undergo 24-hour semantic claim clustering (`cosine_similarity > 0.85`). Repeat allegations from coordinated or duplicate accounts increment `CAMPAIGN_CLUSTERS.mention_count` in `D3` without triggering duplicate Agent 2/3 executions.
 
-### 3.2 Module 2: Sentiment, Authenticity & Validity Triage (Agent 2)
-- **FR-2.1:** The system shall analyze `raw_text` and assign a primary sentiment tag: `Positive`, `Neutral`, or `Negative`.
-- **FR-2.2:** For all `Negative` records, the system shall apply a validity verification rubric to categorize the post into one of four classes:
-  1. `Spam_Noise`: Bot-generated spam, irrelevant ads, or gibberish.
-  2. `Subjective_Hyperbole`: Non-actionable emotional complaints without factual claims (e.g., *"this product is trash"*).
-  3. `Factual_Grievance`: Actionable assertions of service failure, monetary loss, or product malfunction.
-  4. `Defamation_Risk`: Actionable false factual claims damaging the brand's standing.
-- **FR-2.3:** The system shall archive `Positive`, `Neutral`, `Spam_Noise`, and `Subjective_Hyperbole` records to the audit log.
-- **FR-2.4:** The system shall route only records tagged `Factual_Grievance` and `Defamation_Risk` to Agent 3 with an assigned urgency score (1 to 10).
+### 3.2 Module 2: Two-Gate Jurisprudence Triage (Process `2.0` — Agent 1, `ADR-001`)
+- **FR-2.1 (Gate 1A — Deterministic Pre-Filter):** Discard posts under 20 characters or failing brand entity matching locally with zero LLM calls.
+- **FR-2.2 (Gate 1B — *Ollman Test* Factuality):** Evaluate remaining text with Gemini Flash to classify `is_falsifiable`. Subjective opinions and rhetorical hyperbole shall be assigned `triage_route = "DISCARD"` and archived in `TRIAGE_AUDITS`.
+- **FR-2.3 (Gate 2 — *De Minimis* Severity Routing):** Evaluate falsifiable claims against statutory severity (`DE_MINIMIS`, `SERVICE_GRIEVANCE`, `STATUTORY_CRIME`, `MALICIOUS_FRAUD`).
+- **FR-2.4 (PR/Support Isolation):** Claims tagged `SERVICE_GRIEVANCE` shall route strictly to `PR_SUPPORT_CALLBACK`, creating a `SERVICE_GRIEVANCE_TICKETS` record for `E3` and halting legal escalation.
+- **FR-2.5 (Legal Escalation):** Only `STATUTORY_CRIME` and `MALICIOUS_FRAUD` claims shall assign `triage_route = "LEGAL_INVESTIGATION"` and advance to Process `3.0` (`CAMPAIGN_CLUSTERS`).
 
-### 3.3 Module 3: Statutory Legal Consultation via RAG (Agent 3)
-- **FR-3.1:** The system shall extract core allegations from the grievance (e.g., deficiency in service, misleading advertisement, illegal data retention, public defamation).
-- **FR-3.2:** The system shall query the local ChromaDB vector store using dense semantic retrieval to locate matching statutory sections.
-- **FR-3.3:** The system shall extract the specific:
-  - `Act Name` and `Year`
-  - `Chapter` and `Section Number`
-  - `Statutory Provision Title`
-  - `Applicable Corporate Liability or Statutory Penalty`
-- **FR-3.4:** The system shall compute an exposure severity rating:
-  - `Low`: Minor customer dispute with negligible statutory exposure.
-  - `Medium`: Statutory deficiency of service covered under Consumer Protection Act mediation.
-  - `High`: Severe consumer safety hazard, significant financial fraud claim, or IT Act non-compliance.
-  - `Critical`: Serious criminal allegation or large-scale class-action vulnerability.
-- **FR-3.5:** The system shall formulate practical legal remediation steps (e.g., immediate customer outreach, evidence preservation, public clarification notice, cease-and-desist).
+### 3.3 Module 3: Dual-Hypothesis Adversarial Verification (Process `4.0` — Agent 2A/2B/2C, `ADR-002`)
+- **FR-3.1 (Parallel LangGraph Fan-Out):** For every unique escalated cluster, LangGraph shall invoke `Agent 2A` and `Agent 2B` in parallel.
+- **FR-3.2 (`Agent 2A`: Corporate Defense Inquirer):** Query `D2` to assemble a `defense_hypothesis` and cite internal compliance/architecture documents demonstrating technical impossibility or policy compliance.
+- **FR-3.3 (`Agent 2B`: Red-Team Devil's Advocate):** Compute `redteam_specificity_score` (`0.0`–`1.0`) and extract `redteam_zero_day_markers` (e.g., internal endpoints, CVE patterns, schema/port indicators) indicative of genuine leaks or whistleblowers.
+- **FR-3.4 (`Agent 2C`: Legal Risk Arbiter):** Synthesize 2A and 2B outputs into an `evidentiary_classification`:
+  - `CLASS_A_BASELESS_SMEAR`: Contradicts `D2`, zero proof, low technical specificity $\rightarrow$ Advance to Agent 3 (`5.0`).
+  - `CLASS_B_ZERO_DAY_AMBIGUITY`: Unconfirmed by `D2` but high technical specificity $\rightarrow$ **Freeze legal notices**, set `ciso_alert_required = 1`, notify `E2`/CISO (`6.0`).
+  - `CLASS_C_SUBSTANTIATED_CRISIS`: Verified evidence/breach attached $\rightarrow$ Escalate directly to Crisis PR & Security Incident Counsel (`6.0`).
 
-### 3.4 Module 4: Executive Dossier PDF Generation
-- **FR-4.1:** The system shall programmatically compile the output of Agent 1, 2, and 3 into a standardized Executive Dossier.
-- **FR-4.2:** The dossier shall contain the following standard sections:
-  1. Incident Summary & Source Metadata
-  2. Grievance Analysis & Validity Classification
-  3. Statutory Citations & Legal Mapping Table
-  4. Corporate Exposure Assessment & Severity Score
-  5. Recommended Action Items
-  6. Non-Attorney Disclaimer
-- **FR-4.3:** The system shall export the generated dossier as a formatted PDF file using ReportLab.
+### 3.4 Module 4: Statutory RAG, Identifiability Routing & Citation Guardrail (Process `5.0` — Agent 3, `ADR-003`/`ADR-004`/`ADR-005`)
+- **FR-4.1 (Bare-Statutes-Only Corpus):** `D1` shall store strictly ~25–40 curated Indian Bare Statutes & IT Rules indexed via Hierarchical Parent-Child chunking (`Child` contextual triggers $\rightarrow$ full `Parent` statutory text). Multi-decade raw court judgments are explicitly excluded in v1.
+- **FR-4.2 (Author Identifiability Routing):**
+  - Always draft an `INTERMEDIARY_TAKEDOWN` (`IT Rules 2021 Rule 3(1)(b)(v) & 3(2)` / `IT Act Sec 79`) and `EXECUTIVE_DOSSIER`.
+  - If `IDENTIFIED`: also draft direct `BNS 2023 Sec 356` `CEASE_AND_DESIST`.
+  - If `ANONYMOUS`: suppress personalized C&D and instead draft an *Ashok Kumar* (`John Doe`) `ASHOK_KUMAR_PRESERVATION` log-preservation request.
+- **FR-4.3 (Closed-Book Drafting & Deterministic Validator):** Draft legal instruments at `temperature = 0.0`. Every generated citation must pass a deterministic Python Regex Citation Validator verifying membership in the current Session RAG Allowlist and rejection of the Repealed Blocklist (`IPC 499`, `IPC 500`, `IT Act 66A`).
+- **FR-4.4 (Bounded Reflection Loop):** On validator failure, Agent 3 may retry up to `max_retries = 2` with explicit validator error feedback. If failure persists, output `guardrail_status = "FAIL_CLOSED_WARNING"` and withhold clean draft generation.
 
-### 3.5 Module 5: System Administration & Vector Knowledge Base Management
-- **FR-5.1:** The system shall provide an administrative script to ingest statutory PDF documents from the Indian Code repository.
-- **FR-5.2:** The ingestion script shall perform section-aware chunking preserving Section numbers and titles as vector metadata.
-- **FR-5.3:** The system shall persist embeddings to local disk storage (`./chroma_data`) to prevent redundant re-indexing costs.
+### 3.5 Module 5: Executive Dossier Generation & Mandatory HITL Gate (Process `6.0`, `ADR-002`/`ADR-007`)
+- **FR-5.1:** Generate styled PDF (`ReportLab` / `WeasyPrint`) and Markdown dossiers stored in `D4`, recording `storage_uri` and `artifact_sha256` in `D3` alongside verification of the mandatory Non-Attorney Disclaimer.
+- **FR-5.2:** Every legal artifact defaults to `PENDING` in `HITL_DECISIONS`. No external notice or takedown workflow may execute unless `E2` explicitly submits `APPROVED`.
+
+### 3.6 Module 6: Admin Ingestion & 50-Case Evaluation Suite (Process `7.0`, `ADR-008`)
+- **FR-6.1:** Provide CLI/API scripts for `E4` to re-index `statutes_corpus.json` (`D1`) and corporate policy docs (`D2`).
+- **FR-6.2:** Execute an automated 50-case `eval_dataset.json` regression suite (5 adversarial/edge buckets $\times$ 10 cases) persisting metrics to `EVALUATION_RUNS`.
 
 ---
 
 ## 4. External Interface Requirements
 
 ### 4.1 User Interfaces
-- **Command Line / Script Interface:** For Phase 1 prototype execution and batch runs.
-- **Interactive UI (Planned Phase 5):** A local web dashboard [e.g., Streamlit / React] to review incident dossiers and download PDFs.
+- **CLI / API Runner:** FastAPI REST endpoints (`/ingest`, `/evaluate`, `/reviews`, `/artifacts/{id}`) plus command-line runner scripts for evaluation and corpus ingestion.
+- **HITL Counsel Dashboard (React / Next.js in `client/`):** Displays triaged campaign queues, Class A/B/C risk badges, side-by-side 2A vs 2B evidence, drafted notices, PDF download links, and Approve/Reject/Escalate-CISO controls.
 
 ### 4.2 Software Interfaces
-- **Google Gemini API:** Utilized via `@google/genai` or `langchain-google-genai` for reasoning, triage, and statutory synthesis.
-- **PRAW (Python Reddit API Wrapper):** Communicates with Reddit OAuth2 endpoints for forum post retrieval.
-- **ChromaDB Client:** Interfaces with local embedded vector database storage.
-- **ReportLab:** Python library for programmatic PDF construction.
+- **Google Gemini API (`langchain-google-genai`):** `Gemini Flash` for high-throughput Stage 1B triage; `Gemini Pro` (`temp=0.0`) for Agent 2A/2B/2C & Agent 3 statutory synthesis.
+- **Reddit API (`PRAW`):** Authenticated OAuth2 post ingestion (`PRAW_LIVE` mode).
+- **ChromaDB (Embedded Local Storage):** Vector persistence for `D1` and `D2`.
+- **SQLite (`D3` + `SqliteSaver`):** Transactional state, audit tables, and resumable LangGraph workflow checkpoints.
+- **PDF Engine (`ReportLab` / `WeasyPrint`):** Formatted PDF dossier rendering into `D4`.
 
 ### 4.3 Hardware Interfaces
-- **Processor:** Minimum Dual-Core x86/ARM Processor (Intel i5/AMD Ryzen 5 or Apple Silicon).
-- **RAM:** Minimum 8 GB (16 GB recommended for local vector query buffering).
-- **Storage:** Minimum 2 GB free disk space for Python virtual environment, dependencies, and vector database.
+- **CPU:** Dual-Core x86_64 or Apple Silicon minimum.
+- **RAM:** 8 GB minimum (16 GB recommended for concurrent FastAPI, ChromaDB embeddings, and React dev server).
+- **Disk:** 2 GB free local storage for Python dependencies, SQLite DB (`D3`), vector indices (`D1`/`D2`), and PDF artifacts (`D4`).
 
 ---
 
 ## 5. Non-Functional Requirements (NFRs)
 
-### 5.1 Performance Requirements
-- **NFR-1.1 (Triage Latency):** Agent 1 and Agent 2 shall complete normalization and validity triage within $\le 3.0$ seconds per post record.
-- **NFR-1.2 (RAG & Dossier Generation Latency):** Agent 3 statutory query and PDF dossier generation shall complete within $\le 8.0$ seconds per actionable post.
-
-### 5.2 Accuracy & Hallucination Mitigation
-- **NFR-2.1 (Citation Grounding):** 100% of statutory sections cited by Agent 3 must exist within the retrieved ChromaDB context. Any citation not present in retrieved context shall be flagged as an ungrounded inference.
-- **NFR-2.2 (Reproducibility):** Running the offline evaluation batch on identical inputs shall yield consistent validity classifications.
-
-### 5.3 Security & Confidentiality
-- **NFR-3.1 (Credential Protection):** API keys (Gemini API, Reddit Client Secret) shall be loaded strictly from local `.env` environment variables and never hardcoded in source files.
-- **NFR-3.2 (Data Sanitization):** Usernames and personal email addresses detected in raw post text shall be masked prior to vector search processing.
-
-### 5.4 Maintainability & Modularity
-- **NFR-4.1 (State Graph Decoupling):** The agents shall be defined as independent nodes in a LangGraph state graph so that Agent 2 or Agent 3 logic can be updated without refactoring the entire pipeline.
+- **NFR-1 (Noise Pruning Efficiency):** Stage 1A + Stage 1B shall prune irrelevant/protected speech so downstream Agent 2/3 tokens are spent solely on escalated unique claim clusters.
+- **NFR-2 (KPI Evaluation Targets — `ADR-008`):**
+  - False Legal Escalation Rate on fair criticism / ordinary grievances: **`0%`**
+  - Class B Zero-Day Ambiguity / Whistleblower Recall: **`>= 90%`**
+  - Deterministic Citation Guardrail Pass Rate: **`100%`** (Zero repealed `IPC 499/500` or `IT Act 66A` citations emitted)
+- **NFR-3 (Resilience & Checkpointing):** External LLM API calls shall use exponential backoff (`tenacity`), and LangGraph transitions shall checkpoint to `SqliteSaver` so interrupted investigations resume cleanly.
+- **NFR-4 (Security & Confidentiality):** API secrets (`GEMINI_API_KEY`, Reddit OAuth keys) shall reside strictly in `.env`; raw untrusted text shall remain wrapped in `<UNTRUSTED_POST_TEXT>` tags; personally identifiable handles shall be anonymized where policy dictates prior to downstream archival.
 
 ---
 
-## 6. Appendices
-
-### 6.1 Appendix A: Acronyms & Glossary
-| Term | Expansion & Definition |
-| :--- | :--- |
-| **SRS** | Software Requirements Specification |
-| **RAG** | Retrieval-Augmented Generation |
-| **LLM** | Large Language Model |
-| **CPA 2019** | The Consumer Protection Act, 2019 (India) |
-| **IT Act 2000** | The Information Technology Act, 2000 (India) |
-| **BNS** | Bharatiya Nyaya Sanhita, 2023 (Replaced Indian Penal Code) |
-| **PRAW** | Python Reddit API Wrapper |
-
-### 6.2 Appendix B: Legal Disclaimer
-Every generated output, screen, and dossier produced by this software must state:
-> *"LEGAL DISCLAIMER: LegalAdvisor AI is an academic research prototype developed strictly for educational, informational, and corporate triage decision-support. It does not provide formal legal advice, legal representation, or establish an attorney-client relationship. All statutory interpretations and exposure ratings must be verified by licensed corporate legal counsel."*
-
----
-*Created: November 1, 2026 | LegalAdvisor AI Project Engineering Space*
-
+## 6. Legal Disclaimer Requirement
+Every exported PDF, Markdown dossier, draft notice, and UI review screen produced by LegalAdvisor AI must prominently include:
+> *"LEGAL DISCLAIMER: LegalAdvisor AI is an academic decision-support prototype developed strictly for corporate defamation triage and statutory risk analysis. It does not constitute formal legal advice, establish an attorney-client relationship, or authorize autonomous legal enforcement. All outputs, zero-day holds, and draft notices require mandatory review and sign-off by licensed Corporate Legal Counsel (`E2`)."*
